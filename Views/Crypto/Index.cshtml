@@ -1,0 +1,77 @@
+﻿
+
+@{
+    string comma = ",";
+    string quote = "&quot;";
+    string month = "7";
+}
+
+
+
+
+
+<html>
+
+<head>
+    <title>Chart Test</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+
+  
+
+</head>
+
+<body>
+
+    <canvas id="myLineChart" width="300" height="100" style="display: block;"></canvas>
+    <p>@ViewBag.BitPrices @quote
+            
+            
+            
+    </p>
+    <script>
+        var ctx = document.getElementById("myLineChart").getContext('2d');
+            var dates = [
+
+                @foreach (var d in @ViewBag.dates){
+                    
+                    @d@comma
+        }
+                    ];
+        var myLineChart = new Chart(ctx, {
+        type: 'line',
+        
+        data: {
+            for(var i = 0;i<dates.length;i++){
+                
+            }
+        labels: [],
+        datasets: [{
+            label: "Price (USD)",
+            backgroundColor: 'rgba(233, 255, 110, 0.521)',
+            borderColor: 'rgb(173, 199, 24)',
+            data:[   @foreach (var p in @ViewBag.BitPrices){
+                       @p@comma
+                }]
+            
+        }]
+      
+    },
+        options: {
+            elements: {
+                line: {
+                    tension: 0, // disables bezier curves
+                }
+            }
+        }
+        });
+        </script>
+
+</body>
+
+</html>
