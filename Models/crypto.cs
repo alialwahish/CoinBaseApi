@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,33 +13,40 @@ namespace crypto.Models
 {
     public class CryptoProxy
     {
-        public async static Task<Crypto> GetCryptoPrice(string date)
+        public async static Task<Crypto> GetCryptoPrice(string currency)
         {
+            DateTime utc = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+            string day = utc.ToString("yyyy-MM-dd");
             var http = new HttpClient();
-            var url = String.Format("https://api.coinbase.com/v2/prices/BTC-USD/spot?date="+date);
+            var url = String.Format($"https://api.coinbase.com/v2/prices/{currency}-USD/spot?date={day}");
             var response = await http.GetAsync(url);
             var result = await response.Content.ReadAsStringAsync();
-            var serializer = new DataContractJsonSerializer(typeof(Crypto));  
+            var serializer = new DataContractJsonSerializer(typeof(Crypto));
             var ms = new MemoryStream(Encoding.UTF8.GetBytes(result));
-            Crypto data = (Crypto) serializer.ReadObject(ms);   
-            data.data.date=date;
-            return data;  
+            var data = (Crypto)serializer.ReadObject(ms);
+            return data;
         }
 
-       
 
 
+        public async static Task<Crypto> GetCryptoMonth(string currency, string date)
+        {
+            var http = new HttpClient();
+            var url = String.Format($"https://api.coinbase.com/v2/prices/{currency}-USD/spot?date={date}");
+            var response = await http.GetAsync(url);
+            var result = await response.Content.ReadAsStringAsync();
+            var serializer = new DataContractJsonSerializer(typeof(Crypto));
+            var ms = new MemoryStream(Encoding.UTF8.GetBytes(result));
+            Crypto data = (Crypto)serializer.ReadObject(ms);
+            
+            return data;
+        }
     }
     public class Data
     {
         public string @base { get; set; }
         public string currency { get; set; }
-
-
         public string amount { get; set; }
-
-
-        public string date {get;set;}
     }
 
     public class Warning
@@ -51,7 +59,6 @@ namespace crypto.Models
     public class Crypto
     {
         public Data data { get; set; }
-       
         public List<Warning> warnings { get; set; }
     }
 }

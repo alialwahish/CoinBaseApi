@@ -1,8 +1,9 @@
 
-namespace crypto{
+namespace crypto
+{
     public class MySqlOptions
     {
-        public string Name {get;set;}
-        public string ConnectingString{get;set;}
+        public string Name { get; set; }
+        public string ConnectionString { get; set; }
     }
 }

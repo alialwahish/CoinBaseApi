@@ -1,0 +1,21 @@
+,,{
+            label: "ETH",
+             backgroundColor: 'rgba(55, 55, 110, 0.521)',
+            borderColor: 'rgb(55, 55, 24)',
+            data: [   @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.ETH[i]@comma
+               
+                }],
+
+        },{
+            label: "BCH",
+             backgroundColor: 'rgba(0, 168, 90, 0.521)',
+            borderColor: 'rgb(0, 168, 90)',
+            data: [    @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.BCH[i]@comma
+               
+                }],
+
+        } 

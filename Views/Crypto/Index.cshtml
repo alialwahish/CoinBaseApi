@@ -28,7 +28,7 @@
 
 <body>
 
-    <p id="currency">BTC</p>
+    <p id="currency">CrybtoAPI</p>
 
     <select id="display"  >
         <option value="Week" selected="selected">Week</option>
@@ -62,15 +62,45 @@
                    @d@comma
 
                 }],
-        datasets: [{
-            label: "Price (USD)",
-            backgroundColor: 'rgba(233, 255, 110, 0.521)',
-            borderColor: 'rgb(173, 199, 24)',
-            data:[   @foreach (var p in @ViewBag.BitPrices){
+        datasets: [{ //////////////////////////////// first 
+            label: "BTC",
+            backgroundColor: 'rgba(247, 147, 26, 0.5)',
+            borderColor: 'rgb(247, 147, 26)',
+            data:[   @foreach (var p in @ViewBag.BTC){
                 @p@comma
                 }]
             
-        }]
+        },
+        
+        {
+            label: "LTC",
+           backgroundColor: 'rgba(182, 183, 186, 0.5)',
+            borderColor: 'rgb(182, 183, 186)',
+            data: [ @foreach (var p in @ViewBag.LTC){
+                @p@comma
+                }]
+
+        }
+        ,{
+            label: "ETH",
+            backgroundColor: 'rgba(55, 55, 110, 0.521)',
+            borderColor: 'rgb(55, 55, 24)',
+            data: [ @foreach (var p in @ViewBag.ETH){
+                @p@comma
+                }]
+
+        }
+        ,
+        {
+            label: "BCH",
+            backgroundColor: 'rgba(0, 168, 90, 0.521)',
+            borderColor: 'rgb(0, 168, 90)',
+            data: [ @foreach (var p in @ViewBag.BCH){
+                @p@comma
+                }]
+
+        }    
+        ]
       
     },
         options: {
@@ -82,11 +112,11 @@
         }
         });
        
-               $("#low").text(@ViewBag.lastWeekMin)
+            //    $("#low").text(@ViewBag.lastWeekMin)
 
        if($("#display").val()=="Week")
 
-       {
+       {/////////////////////////////////////////////////// second one
            var myLineChart = new Chart(ctx, {
                
                type: 'line',
@@ -98,16 +128,48 @@
 
                 }],
         datasets: [{
-            label: "Price (USD)",
-            backgroundColor: 'rgba(233, 255, 110, 0.521)',
-            borderColor: 'rgb(173, 199, 24)',
+            label: "BTC",
+            backgroundColor: 'rgba(247, 147, 26, 0.5)',
+            borderColor: 'rgb(247, 147, 26)',
             data:[    @for (int i=23;i< 30;i++){
                
-                   @ViewBag.BitPrices[i]@comma
+                   @ViewBag.BTC[i]@comma
                
                 }]
             
-        }]
+        },{                   
+            label: "LTC",
+            backgroundColor: 'rgba(182, 183, 186, 0.5)',
+            borderColor: 'rgb(182, 183, 186)',
+            data: [   @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.LTC[i]@comma
+               
+                }],
+
+        } ,
+        {                   
+            label: "ETH",
+             backgroundColor: 'rgba(55, 55, 110, 0.521)',
+            borderColor: 'rgb(55, 55, 24)',
+            data: [   @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.ETH[i]@comma
+               
+                }],
+
+        },
+        {                   
+            label: "BCH",
+             backgroundColor: 'rgba(0, 168, 90, 0.521)',
+            borderColor: 'rgb(0, 168, 90)',
+            data: [   @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.BCH[i]@comma
+               
+                }],
+
+        } ]
       
     },
         options: {
@@ -119,7 +181,7 @@
         }
         });
 
-        $("#low").text(@ViewBag.lastWeekMin)
+        // $("#low").text(@ViewBag.lastWeekMin)
 
 
        }// if statement
@@ -135,29 +197,61 @@
                         }
        else if($("#display").val()=="Week")
 
-       {
+       {////////////////////////////////////////////// Last one
          
            var myLineChart = new Chart(ctx, {
                
                type: 'line',
         
-        data: {
+        data:  {
             labels: [@for (int i=23;i< 30;i++){
                
                    @ViewBag.dates[i]@comma
 
                 }],
         datasets: [{
-            label: "Price (USD)",
-            backgroundColor: 'rgba(233, 255, 110, 0.521)',
-            borderColor: 'rgb(173, 199, 24)',
-            data:[  @for (int i=23;i< 30;i++){
+            label: "BTC",
+            backgroundColor: 'rgba(247, 147, 26, 0.5)',
+            borderColor: 'rgb(247, 147, 26)',
+            data:[    @for (int i=23;i< 30;i++){
                
-                   @ViewBag.BitPrices[i]@comma
-
+                   @ViewBag.BTC[i]@comma
+               
                 }]
             
-        }]
+        },{   //                the last week display
+            label: "LTC",
+            backgroundColor: 'rgba(182, 183, 186, 0.5)',
+            borderColor: 'rgb(182, 183, 186)',
+            data: [   @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.LTC[i]@comma
+               
+                }],
+
+        },
+        {                   
+            label: "ETH",
+             backgroundColor: 'rgba(55, 55, 110, 0.521)',
+            borderColor: 'rgb(55, 55, 24)',
+            data: [   @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.ETH[i]@comma
+               
+                }],
+
+        },
+        {                   
+            label: "BCH",
+             backgroundColor: 'rgba(0, 168, 90, 0.521)',
+            borderColor: 'rgb(0, 168, 90)',
+            data: [   @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.BCH[i]@comma
+               
+                }],
+
+        }  ]
       
     },
         options: {
@@ -168,7 +262,7 @@
             }
         }
         });
-                $("#low").text(@ViewBag.lastWeekMin)
+                // $("#low").text(@ViewBag.lastWeekMin)
 
        }
 
@@ -193,8 +287,8 @@
         
 
 
-        <p id="high">Highest: @ViewBag.max USD</p>
-        <p id="low">Lowest: @ViewBag.min USD</p>
+        <p id="high">Highest:  USD</p>
+        <p id="low">Lowest:  USD</p>
 
       
 </body>
