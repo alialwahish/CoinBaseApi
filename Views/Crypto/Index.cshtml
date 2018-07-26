@@ -31,6 +31,7 @@
     <p id="currency">CrybtoAPI</p>
 
     <select id="display"  >
+        <option value="Hours" >Hours</option> 
         <option value="Week" selected="selected">Week</option>
         <option value="Month">Month</option>
     </select>
@@ -186,8 +187,90 @@
 
        }// if statement
                         
+
+
+
+
+               else if($("#display").val()=="Hours"){//             hours display
+                                         var myLineChart = new Chart(ctx, {
+                                
+                                type: 'line',
+        
+        data: {
+            labels: [@foreach (var d in @ViewBag.hours){
+                
+                   @d@comma
+
+                }],
+        datasets: [{ 
+            label: "BTC",
+            backgroundColor: 'rgba(247, 147, 26, 0.5)',
+            borderColor: 'rgb(247, 147, 26)',
+            data:[   @foreach (var p in @ViewBag.bitRecent){
+                @p.price@comma
+                }]
+            
+        },
+        
+        {
+            label: "LTC",
+           backgroundColor: 'rgba(182, 183, 186, 0.5)',
+            borderColor: 'rgb(182, 183, 186)',
+            data: [ @foreach (var p in @ViewBag.liteRecent){
+                @p.price@comma
+                }]
+
+        }
+        ,{
+            label: "ETH",
+            backgroundColor: 'rgba(55, 55, 110, 0.521)',
+            borderColor: 'rgb(55, 55, 24)',
+            data: [ @foreach (var p in @ViewBag.ethRecent){
+                @p.price@comma
+                }]
+
+        }
+        ,
+        {
+            label: "BCH",
+            backgroundColor: 'rgba(0, 168, 90, 0.521)',
+            borderColor: 'rgb(0, 168, 90)',
+            data: [ @foreach (var p in @ViewBag.cashRecent){
+                @p.price@comma
+                }]
+
+        }    
+        ]
+      
+    },
+        options: {
+            elements: {
+                line: {
+                    tension: 0, // disables bezier curves
+                }
+            }
+        }
+        });
+               }
+     
                         
-                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         })
                         
                         

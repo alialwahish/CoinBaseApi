@@ -109,6 +109,9 @@ namespace crypto.Controllers
 
 
 
+
+
+
             // float min = allFloatCoins[0].First();
             // float max = min;
             // foreach (var p in allFloatCoins[0])
@@ -134,8 +137,51 @@ namespace crypto.Controllers
 
             // }
 
+            // List<Crypto> hoursBt = new List<Crypto>();
+            // List<string> hours = new List<string>();
+            // // string[] coins = { "BTC", "BCH", "ETH", "LTC" };
+            // List<List<Crypto>> hoursAllCoins = new List<List<Crypto>>();
+
+            // for (int i = 0; i < 6; i++)
+            // {
+            //     int index = _context.bitcoin.Last().id;
+
+            //     if (hours.Count < 6)
+            //     {
+
+            //         dates.Insert(0, i.ToString());
+            //     }
+
+            //     hoursBt.Add(_context.);
+            // }
+
+            int id = _context.ethereum.Last().id;
+            List<Bitcoin> bitRecent = new List<Bitcoin>();
+            List<BitCoinCash> cashRecent = new List<BitCoinCash>();
+            List<Ethereum> ethRecent = new List<Ethereum>();
+            List<Litecoin> liteRecent = new List<Litecoin>();
+            List<string> hours = new List<string>();
+
+            for (var i = 0; i < 6; i++)
+            {
+
+                hours.Insert(0,i.ToString());
+                bitRecent.Insert(0,_context.bitcoin.SingleOrDefault(choose => choose.id == id));
+                cashRecent.Insert(0,_context.bcash.SingleOrDefault(choose => choose.id == id));
+                ethRecent.Insert(0,_context.ethereum.SingleOrDefault(choose => choose.id == id));
+                liteRecent.Insert(0,_context.litecoin.SingleOrDefault(choose => choose.id == id));
+                id--;
+            }
+
+               
 
 
+
+            ViewBag.bitRecent=bitRecent;
+            ViewBag.cashRecent=cashRecent;
+            ViewBag.ethRecent=ethRecent;
+            ViewBag.liteRecent=liteRecent;
+            ViewBag.hours = hours;
 
             ViewBag.BTC = allFloatCoins[0];
             ViewBag.BCH = allFloatCoins[1];
@@ -151,8 +197,8 @@ namespace crypto.Controllers
 
             ViewBag.Bitcoin = "BTC";
             ViewBag.BCHCurr = "BCH";
-            ViewBag.ETHCurr ="ETH";
-            ViewBag.LTCCurr="LTC";
+            ViewBag.ETHCurr = "ETH";
+            ViewBag.LTCCurr = "LTC";
             return View();
         }
 
