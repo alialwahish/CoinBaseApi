@@ -15,8 +15,12 @@ using System.Threading.Tasks;
 
 namespace crypto.Controllers
 {
-    public class CryptoController : Controller 
+    public class CryptoController : Controller
     {
+
+        
+
+
         [HttpGet]
         [Route("")]
         public async Task<ActionResult> Index()
@@ -25,12 +29,12 @@ namespace crypto.Controllers
 
             List<Crypto> monthBt = new List<Crypto>();
             List<string> dates = new List<string>();
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 30; i++)
             {
                 DateTime today = DateTime.Now;
                 today = today.AddDays(-i);
-                
-                
+
+
                 string date = today.ToString("yyyy-MM-dd");
                 // Console.WriteLine(date);
                 dates.Insert(0,today.ToString("dd"));
@@ -39,18 +43,50 @@ namespace crypto.Controllers
             }
             List<float> prices = new List<float>();
 
-            foreach(var bt in monthBt){
+            foreach (var bt in monthBt)
+            {
                 prices.Add(float.Parse(bt.data.amount,
       System.Globalization.CultureInfo.InvariantCulture));
             }
-            Array arrPrices = prices.ToArray();
+
+
+
+            float min = prices.First();
+            float max = min;
+            foreach (var p in prices)
+            {
+                if (min > p)
+                {
+                    min = p;
+                }
+                if (max < p)
+                {
+                    max = p;
+                }
+            }
             
-            ViewBag.dates=dates;
+            ViewBag.lastWeekMin=prices.Last();
+            for (int i=23;i< 30;i++){
+               if(ViewBag.lastWeekMin>prices[i]){
+                   ViewBag.lastWeekMin=prices[i];
+               }
+                   
+
+                }
+
+
+            ViewBag.max = max;
+            ViewBag.min = min;
+            ViewBag.dates = dates;
             ViewBag.btCoins = monthBt;
             ViewBag.BitPrices = prices;
+            
             ViewBag.Bitcoin = monthBt.First().data.currency;
 
             return View();
         }
+
+
+
     }
 }

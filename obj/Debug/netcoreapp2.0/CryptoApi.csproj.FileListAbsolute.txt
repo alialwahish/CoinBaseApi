@@ -9,3 +9,14 @@
 /home/ali/codingDojo/c#/CryptoApi/obj/Debug/netcoreapp2.0/CryptoApi.AssemblyInfo.cs
 /home/ali/codingDojo/c#/CryptoApi/obj/Debug/netcoreapp2.0/CryptoApi.dll
 /home/ali/codingDojo/c#/CryptoApi/obj/Debug/netcoreapp2.0/CryptoApi.pdb
+/home/ali/codingDojo/c#/CoinBaseApi/bin/Debug/netcoreapp2.0/CryptoApi.deps.json
+/home/ali/codingDojo/c#/CoinBaseApi/bin/Debug/netcoreapp2.0/CryptoApi.runtimeconfig.json
+/home/ali/codingDojo/c#/CoinBaseApi/bin/Debug/netcoreapp2.0/CryptoApi.runtimeconfig.dev.json
+/home/ali/codingDojo/c#/CoinBaseApi/bin/Debug/netcoreapp2.0/CryptoApi.dll
+/home/ali/codingDojo/c#/CoinBaseApi/bin/Debug/netcoreapp2.0/CryptoApi.pdb
+/home/ali/codingDojo/c#/CoinBaseApi/obj/Debug/netcoreapp2.0/CryptoApi.csprojResolveAssemblyReference.cache
+/home/ali/codingDojo/c#/CoinBaseApi/obj/Debug/netcoreapp2.0/CryptoApi.csproj.CoreCompileInputs.cache
+/home/ali/codingDojo/c#/CoinBaseApi/obj/Debug/netcoreapp2.0/CryptoApi.AssemblyInfoInputs.cache
+/home/ali/codingDojo/c#/CoinBaseApi/obj/Debug/netcoreapp2.0/CryptoApi.AssemblyInfo.cs
+/home/ali/codingDojo/c#/CoinBaseApi/obj/Debug/netcoreapp2.0/CryptoApi.dll
+/home/ali/codingDojo/c#/CoinBaseApi/obj/Debug/netcoreapp2.0/CryptoApi.pdb

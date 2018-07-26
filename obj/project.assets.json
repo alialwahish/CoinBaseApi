@@ -12540,11 +12540,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/ali/codingDojo/c#/CryptoApi/CryptoApi.csproj",
+      "projectUniqueName": "/home/ali/codingDojo/c#/CoinBaseApi/CryptoApi.csproj",
       "projectName": "CryptoApi",
-      "projectPath": "/home/ali/codingDojo/c#/CryptoApi/CryptoApi.csproj",
+      "projectPath": "/home/ali/codingDojo/c#/CoinBaseApi/CryptoApi.csproj",
       "packagesPath": "/home/ali/.nuget/packages/",
-      "outputPath": "/home/ali/codingDojo/c#/CryptoApi/obj/",
+      "outputPath": "/home/ali/codingDojo/c#/CoinBaseApi/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"

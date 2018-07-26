@@ -2,8 +2,8 @@
 
 @{
     string comma = ",";
-    string quote = "&quot;";
-    string month = "7";
+    string quote = "'";
+    
 }
 
 
@@ -28,35 +28,46 @@
 
 <body>
 
+    <p id="currency">BTC</p>
+
+    <select id="display"  >
+        <option value="Week" selected="selected">Week</option>
+        <option value="Month">Month</option>
+    </select>
+
     <canvas id="myLineChart" width="300" height="100" style="display: block;"></canvas>
-    <p>@ViewBag.BitPrices @quote
-            
+        
             
             
     </p>
     <script>
         var ctx = document.getElementById("myLineChart").getContext('2d');
-            var dates = [
 
-                @foreach (var d in @ViewBag.dates){
-                    
-                    @d@comma
-        }
-                    ];
-        var myLineChart = new Chart(ctx, {
-        type: 'line',
+        
+        
+
+            
+                $(document).ready(function(){
+                    $("#display").change(function(){
+
+                         var myLineChart = new Chart(ctx, {
+                                
+                                type: 'line',
         
         data: {
-            for(var i = 0;i<dates.length;i++){
-                
-            }
-        labels: [],
+            labels: [@foreach (var d in @ViewBag.dates){
+                if( @ViewBag.dates.IndexOf(@d) == 30){
+                    break;
+               }
+                   @d@comma
+
+                }],
         datasets: [{
             label: "Price (USD)",
             backgroundColor: 'rgba(233, 255, 110, 0.521)',
             borderColor: 'rgb(173, 199, 24)',
             data:[   @foreach (var p in @ViewBag.BitPrices){
-                       @p@comma
+                @p@comma
                 }]
             
         }]
@@ -70,8 +81,122 @@
             }
         }
         });
+       
+               $("#low").text(@ViewBag.lastWeekMin)
+
+       if($("#display").val()=="Week")
+
+       {
+           var myLineChart = new Chart(ctx, {
+               
+               type: 'line',
+        
+        data: {
+            labels: [@for (int i=23;i< 30;i++){
+               
+                   @ViewBag.dates[i]@comma
+
+                }],
+        datasets: [{
+            label: "Price (USD)",
+            backgroundColor: 'rgba(233, 255, 110, 0.521)',
+            borderColor: 'rgb(173, 199, 24)',
+            data:[    @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.BitPrices[i]@comma
+               
+                }]
+            
+        }]
+      
+    },
+        options: {
+            elements: {
+                line: {
+                    tension: 0, // disables bezier curves
+                }
+            }
+        }
+        });
+
+        $("#low").text(@ViewBag.lastWeekMin)
+
+
+       }// if statement
+                        
+                        
+                        
+                        })
+                        
+                        
+                        if($("#display").val()=="Month"){
+                            
+                           
+                        }
+       else if($("#display").val()=="Week")
+
+       {
+         
+           var myLineChart = new Chart(ctx, {
+               
+               type: 'line',
+        
+        data: {
+            labels: [@for (int i=23;i< 30;i++){
+               
+                   @ViewBag.dates[i]@comma
+
+                }],
+        datasets: [{
+            label: "Price (USD)",
+            backgroundColor: 'rgba(233, 255, 110, 0.521)',
+            borderColor: 'rgb(173, 199, 24)',
+            data:[  @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.BitPrices[i]@comma
+
+                }]
+            
+        }]
+      
+    },
+        options: {
+            elements: {
+                  line: {
+                    tension: 0, // disables bezier curves
+                }
+            }
+        }
+        });
+                $("#low").text(@ViewBag.lastWeekMin)
+
+       }
+
+                })
+
+
+
+
+
+
+        
+       
+
+       
+               
+
+        
         </script>
 
+
+
+        
+
+
+        <p id="high">Highest: @ViewBag.max USD</p>
+        <p id="low">Lowest: @ViewBag.min USD</p>
+
+      
 </body>
 
 </html>
