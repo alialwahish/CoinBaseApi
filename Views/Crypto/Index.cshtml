@@ -1,25 +1,57 @@
-﻿@{
+﻿<meta http-equiv="refresh" content="120">
+
+
+@{
     string comma = ",";
     string quote = "'";
     
 }
 
+
+<div style="width: 100%;">
+    <div class="now-block">
+ <button class="btn btn-primary" id="liveBTC"><i class="fas fa-sync-alt"></i></button>    
+    <span> BTC Now: <span id="showBTC"></span>
+    </div>
+
+    <div class="now-block">
+    <button class="btn btn-primary" id="liveLTC"><i class="fas fa-sync-alt"></i></button>    
+    <span>LTC Now: <span id="showLTC"></span>
+    </div>
+
+    <div class="now-block">
+    
+    <button class = "btn btn-primary" id="liveETH"><i class="fas fa-sync-alt"></i></button>    
+    <span>ETH Now: <span id="showETH"></span>
+    </div>
+
+    <div class="now-block">
+    <button class = "btn btn-primary" id="liveBCH"><i class="fas fa-sync-alt"></i></button>    
+    <span>BCH Now: <span id="showBCH"></span>
+    </div>
+
+    </div>
+
+
 <center>
-    <p id="currency" style="margin-top: 20px;"></p>
+    <!-- <p id="currency" style="margin-top: 20px;"></p> -->
 
     <select id="display" class="form-control" style="width: 150px;">
-        <option value="Hours" >Hours</option> 
+        <option value="Hours" >Last 12 Hours</option> 
         <option value="Week" selected="selected">Week</option>
         <option value="Month">Month</option>
     </select>
 <br>
     </center>
 
+
     <canvas id="myLineChart" width="300" height="100" style="display: block;"></canvas>
         
             
             
     </p>
+
+    
     <script>
         var ctx = document.getElementById("myLineChart").getContext('2d');
 
@@ -28,6 +60,65 @@
 
             
                 $(document).ready(function(){
+
+                    var today = new Date();
+                    var dd = today.getDate();
+                    var mm = today.getMonth()+1; //January is 0!
+                    var yyyy = today.getFullYear();
+
+                    $.get("https://api.coinbase.com/v2/prices/BTC-USD/spot?date="+yyyy+"-"+mm+"-"+dd, function(data) {
+                $("#showBTC").text("$"+data.data.amount)
+
+                });
+
+                   $.get("https://api.coinbase.com/v2/prices/LTC-USD/spot?date="+yyyy+"-"+mm+"-"+dd, function(data) {
+                $("#showLTC").text("$"+data.data.amount)
+
+                });
+
+                 $.get("https://api.coinbase.com/v2/prices/ETH-USD/spot?date="+yyyy+"-"+mm+"-"+dd, function(data) {
+                $("#showETH").text("$"+data.data.amount)
+
+                });
+
+                 $.get("https://api.coinbase.com/v2/prices/BCH-USD/spot?date="+yyyy+"-"+mm+"-"+dd, function(data) {
+                $("#showBCH").text("$"+data.data.amount)
+
+                });
+
+
+                    
+
+
+            $("#liveBTC").click(function(){
+
+                $.get("https://api.coinbase.com/v2/prices/BTC-USD/spot?date="+yyyy+"-"+mm+"-"+dd, function(data) {
+                $("#showBTC").text("$"+data.data.amount)
+
+                });
+            })
+            $("#liveLTC").click(function(){
+
+                $.get("https://api.coinbase.com/v2/prices/LTC-USD/spot?date="+yyyy+"-"+mm+"-"+dd, function(data) {
+                $("#showLTC").text("$"+data.data.amount)
+
+                });
+            })
+            $("#liveETH").click(function(){
+
+                $.get("https://api.coinbase.com/v2/prices/ETH-USD/spot?date="+yyyy+"-"+mm+"-"+dd, function(data) {
+                $("#showETH").text("$"+data.data.amount)
+
+                });
+            })
+            $("#liveBCH").click(function(){
+
+                $.get("https://api.coinbase.com/v2/prices/BCH-USD/spot?date="+yyyy+"-"+mm+"-"+dd, function(data) {
+                $("#showBCH").text("$"+data.data.amount)
+
+                });
+            })
+
 
 
                         if($("#display").val()=="Week")

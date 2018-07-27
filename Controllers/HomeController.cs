@@ -72,7 +72,7 @@ namespace crypto.Controllers
             List<Litecoin> liteRecent = new List<Litecoin>();
             List<string> hours = new List<string>();
 
-            for (var i = 0; i < 6; i++)
+            for (var i = 0; i < 12; i++)
             {
 
                 hours.Insert(0, i.ToString());
