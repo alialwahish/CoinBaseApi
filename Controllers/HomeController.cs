@@ -28,70 +28,44 @@ namespace crypto.Controllers
         [Route("")]
         public async Task<ActionResult> Index()
         {
-            //Trim lat and lon
+            /////////////////////////////////////////// getting the last update 
 
-            // new controller route
+             var bitcoin = await Models.CryptoProxy.GetCryptoPrice("BTC");
+            var bcash = await Models.CryptoProxy.GetCryptoPrice("BCH");
+            var ethereum = await Models.CryptoProxy.GetCryptoPrice("ETH");
+            var litecoin = await Models.CryptoProxy.GetCryptoPrice("LTC");
+            Bitcoin btc = new Bitcoin();
+            Litecoin ltc = new Litecoin();
+            Ethereum eth = new Ethereum();
+            BitCoinCash bch = new BitCoinCash();
+            btc.price = Convert.ToDecimal(bitcoin.data.amount);
+            bch.price = Convert.ToDecimal(bcash.data.amount);
+            eth.price = Convert.ToDecimal(ethereum.data.amount);
+            ltc.price = Convert.ToDecimal(litecoin.data.amount);
+            _context.Add(btc);
+            _context.Add(bch);
+            _context.Add(eth);
+            _context.Add(ltc);
+            _context.SaveChanges();
 
-            // ViewBag.LitePrice = ltc.price;
-            // ViewBag.Litecoin = litecoin.data.@base;
-            // return View();
+
+
+
+            ////////////////////////////////////////////// end of getting the last update
 
 
 
 
-            //  end new controller route
+          
             List<FullCoin> fullCoin = new List<FullCoin>();
 
             List<Crypto> monthBt = new List<Crypto>();
             List<string> dates = new List<string>();
             string[] coins = { "BTC", "BCH", "ETH", "LTC" };
             List<List<Crypto>> allCoins = new List<List<Crypto>>();
-            // foreach (var coin in coins)
-            // {
+           
 
-            //     for (int i = 0; i < 30; i++)
-            //     {
-            //         DateTime today = DateTime.Now;
-            //         today = today.AddDays(-i);
-            //         string date = today.ToString("yyyy-MM-dd");
-            //         // Console.WriteLine(date);
-            //         if (dates.Count < 30)
-            //         {
-            //             dates.Insert(0, today.ToString("dd"));
-            //         }
-            //         var c = await Models.CryptoProxy.GetCryptoMonth(coin, date);
-            //         monthBt.Add(c);
-            //         FullCoin fc = new FullCoin();
-            //         fc.price = float.Parse(c.data.amount,
-            //   System.Globalization.CultureInfo.InvariantCulture);
-            //         fc.Currency = c.data.@base;
-            //         fullCoin.Add(fc);
-            //         _context.Add(fc);
-            //         _context.SaveChanges();
-
-            //     }
-            //     allCoins.Add(monthBt);
-            //     monthBt = new List<Crypto>();
-            // }
-            //         _context.SaveChanges();
-
-
-            //     foreach (var cB in allCoins)
-            //     {
-            //         foreach (var coin in cB)
-            //         {
-
-            //             prices.Add(float.Parse(coin.data.amount,
-            //   System.Globalization.CultureInfo.InvariantCulture));
-
-
-            //         }
-            //         allFloatCoins.Add(prices);
-
-            //     }
-
-
-            int id = _context.ethereum.Last().id;
+            int id = _context.ethereum.Last().id-1;
             List<Bitcoin> bitRecent = new List<Bitcoin>();
             List<BitCoinCash> cashRecent = new List<BitCoinCash>();
             List<Ethereum> ethRecent = new List<Ethereum>();
@@ -106,7 +80,7 @@ namespace crypto.Controllers
                 cashRecent.Insert(0, _context.bcash.SingleOrDefault(choose => choose.id == id));
                 ethRecent.Insert(0, _context.ethereum.SingleOrDefault(choose => choose.id == id));
                 liteRecent.Insert(0, _context.litecoin.SingleOrDefault(choose => choose.id == id));
-                id--;
+                id-=60;
             }
 
 

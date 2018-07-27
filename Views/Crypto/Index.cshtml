@@ -97,7 +97,6 @@
             }
         }
         });
-                // $("#low").text(@ViewBag.lastWeekMin)
 
        }
 
@@ -268,12 +267,12 @@
             label: "LTC",
            backgroundColor: 'rgba(182, 183, 186, 0.5)',
             borderColor: 'rgb(182, 183, 186)',
-            data: [ @foreach (var p in @ViewBag.liteRecent){
-                @p.price@comma
+            data: [ @foreach (var i in @ViewBag.liteRecent){
+                @i.price@comma
                 }]
 
-        }
-        ,{
+        },
+        {
             label: "ETH",
             backgroundColor: 'rgba(55, 55, 110, 0.521)',
             borderColor: 'rgb(55, 55, 24)',
@@ -281,8 +280,7 @@
                 @p.price@comma
                 }]
 
-        }
-        ,
+        },
         {
             label: "BCH",
             backgroundColor: 'rgba(0, 168, 90, 0.521)',
@@ -291,7 +289,9 @@
                 @p.price@comma
                 }]
 
-        }    
+        } 
+        
+           
         ]
       
     },
