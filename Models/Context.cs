@@ -8,5 +8,7 @@ namespace crypto.Models
         public DbSet<BitCoinCash> bcash { get; set; }
         public DbSet<Ethereum> ethereum { get; set; }
         public DbSet<Litecoin> litecoin { get; set; }
+
+        public DbSet<FullCoin> lastMonthAllCoins {get;set;}
     }
 }

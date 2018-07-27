@@ -12,21 +12,38 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 namespace crypto.Models
 {
-    public abstract class BaseEntity{}
+    public abstract class BaseEntity { }
     public class Coin : BaseEntity
     {
         [Key]
-        public int id {get;set;}
+        public int id { get; set; }
         [Required]
-        public decimal price {get;set;}
-        public DateTime created_at {get;set;}
+        public decimal price { get; set; }
+        public DateTime created_at { get; set; }
         public Coin()
         {
             created_at = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
         }
     }
-    public class Bitcoin : Coin {}
-    public class BitCoinCash : Coin {}
-    public class Ethereum : Coin {}
-    public class Litecoin : Coin {}
+
+
+    public class FullCoin : BaseEntity
+    {
+        public int id { get; set; }
+        public float price { get; set; }
+
+        public string Currency { get; set;}
+        public DateTime created_at { get; set; }
+        public FullCoin()
+        {
+            created_at = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+
+        }
+
+    }
+    public class Bitcoin : Coin { }
+    public class BitCoinCash : Coin { }
+    public class Ethereum : Coin { }
+    public class Litecoin : Coin { }
+
 }

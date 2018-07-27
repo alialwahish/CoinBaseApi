@@ -31,32 +31,7 @@ namespace crypto.Controllers
             //Trim lat and lon
 
             // new controller route
-            var bitcoin = await Models.CryptoProxy.GetCryptoPrice("BTC");
-            Bitcoin btc = new Bitcoin();
-            btc.price = Convert.ToDecimal(bitcoin.data.amount);
-            _context.Add(btc);
-            _context.SaveChanges();
-            // ViewBag.BitPrice = btc.price;
-            // ViewBag.Bitcoin = bitcoin.data.@base;
-            var bcash = await Models.CryptoProxy.GetCryptoPrice("BCH");
-            BitCoinCash bch = new BitCoinCash();
-            bch.price = Convert.ToDecimal(bcash.data.amount);
-            _context.Add(bch);
-            _context.SaveChanges();
-            // ViewBag.BcashPrice = bch.price;
-            // ViewBag.Bcash = bcash.data.@base;
-            var ethereum = await Models.CryptoProxy.GetCryptoPrice("ETH");
-            Ethereum eth = new Ethereum();
-            eth.price = Convert.ToDecimal(ethereum.data.amount);
-            _context.Add(eth);
-            _context.SaveChanges();
-            // ViewBag.EthPrice = eth.price;
-            // ViewBag.Ethereum = ethereum.data.@base;
-            var litecoin = await Models.CryptoProxy.GetCryptoPrice("LTC");
-            Litecoin ltc = new Litecoin();
-            ltc.price = Convert.ToDecimal(litecoin.data.amount);
-            _context.Add(ltc);
-            _context.SaveChanges();
+
             // ViewBag.LitePrice = ltc.price;
             // ViewBag.Litecoin = litecoin.data.@base;
             // return View();
@@ -65,95 +40,56 @@ namespace crypto.Controllers
 
 
             //  end new controller route
+            List<FullCoin> fullCoin = new List<FullCoin>();
 
             List<Crypto> monthBt = new List<Crypto>();
             List<string> dates = new List<string>();
             string[] coins = { "BTC", "BCH", "ETH", "LTC" };
             List<List<Crypto>> allCoins = new List<List<Crypto>>();
-            foreach (var coin in coins)
-            {
-
-                for (int i = 0; i < 30; i++)
-                {
-                    DateTime today = DateTime.Now;
-                    today = today.AddDays(-i);
-                    string date = today.ToString("yyyy-MM-dd");
-                    // Console.WriteLine(date);
-                    if (dates.Count < 30)
-                    {
-
-                        dates.Insert(0, today.ToString("dd"));
-                    }
-                    var c = await Models.CryptoProxy.GetCryptoMonth(coin, date);
-                    monthBt.Add(c);
-                }
-                allCoins.Add(monthBt);
-                monthBt = new List<Crypto>();
-            }
-
-            List<List<float>> allFloatCoins = new List<List<float>>();
-            List<float> prices = new List<float>();
-
-            foreach (var cB in allCoins)
-            {
-                foreach (var coin in cB)
-                {
-
-                    prices.Add(float.Parse(coin.data.amount,
-          System.Globalization.CultureInfo.InvariantCulture));
-                }
-                allFloatCoins.Add(prices);
-                prices = new List<float>();
-
-            }
-
-
-
-
-
-
-            // float min = allFloatCoins[0].First();
-            // float max = min;
-            // foreach (var p in allFloatCoins[0])
+            // foreach (var coin in coins)
             // {
-            //     if (min > p)
+
+            //     for (int i = 0; i < 30; i++)
             //     {
-            //         min = p;
+            //         DateTime today = DateTime.Now;
+            //         today = today.AddDays(-i);
+            //         string date = today.ToString("yyyy-MM-dd");
+            //         // Console.WriteLine(date);
+            //         if (dates.Count < 30)
+            //         {
+            //             dates.Insert(0, today.ToString("dd"));
+            //         }
+            //         var c = await Models.CryptoProxy.GetCryptoMonth(coin, date);
+            //         monthBt.Add(c);
+            //         FullCoin fc = new FullCoin();
+            //         fc.price = float.Parse(c.data.amount,
+            //   System.Globalization.CultureInfo.InvariantCulture);
+            //         fc.Currency = c.data.@base;
+            //         fullCoin.Add(fc);
+            //         _context.Add(fc);
+            //         _context.SaveChanges();
+
             //     }
-            //     if (max < p)
-            //     {
-            //         max = p;
-            //     }
+            //     allCoins.Add(monthBt);
+            //     monthBt = new List<Crypto>();
             // }
+            //         _context.SaveChanges();
 
-            // ViewBag.lastWeekMin = allFloatCoins[0].Last();
-            // for (int i = 23; i < 30; i++)
-            // {
-            //     if (ViewBag.lastWeekMin > allFloatCoins[0][i])
+
+            //     foreach (var cB in allCoins)
             //     {
-            //         ViewBag.lastWeekMin = allFloatCoins[0][i];
+            //         foreach (var coin in cB)
+            //         {
+
+            //             prices.Add(float.Parse(coin.data.amount,
+            //   System.Globalization.CultureInfo.InvariantCulture));
+
+
+            //         }
+            //         allFloatCoins.Add(prices);
+
             //     }
 
-
-            // }
-
-            // List<Crypto> hoursBt = new List<Crypto>();
-            // List<string> hours = new List<string>();
-            // // string[] coins = { "BTC", "BCH", "ETH", "LTC" };
-            // List<List<Crypto>> hoursAllCoins = new List<List<Crypto>>();
-
-            // for (int i = 0; i < 6; i++)
-            // {
-            //     int index = _context.bitcoin.Last().id;
-
-            //     if (hours.Count < 6)
-            //     {
-
-            //         dates.Insert(0, i.ToString());
-            //     }
-
-            //     hoursBt.Add(_context.);
-            // }
 
             int id = _context.ethereum.Last().id;
             List<Bitcoin> bitRecent = new List<Bitcoin>();
@@ -165,35 +101,86 @@ namespace crypto.Controllers
             for (var i = 0; i < 6; i++)
             {
 
-                hours.Insert(0,i.ToString());
-                bitRecent.Insert(0,_context.bitcoin.SingleOrDefault(choose => choose.id == id));
-                cashRecent.Insert(0,_context.bcash.SingleOrDefault(choose => choose.id == id));
-                ethRecent.Insert(0,_context.ethereum.SingleOrDefault(choose => choose.id == id));
-                liteRecent.Insert(0,_context.litecoin.SingleOrDefault(choose => choose.id == id));
+                hours.Insert(0, i.ToString());
+                bitRecent.Insert(0, _context.bitcoin.SingleOrDefault(choose => choose.id == id));
+                cashRecent.Insert(0, _context.bcash.SingleOrDefault(choose => choose.id == id));
+                ethRecent.Insert(0, _context.ethereum.SingleOrDefault(choose => choose.id == id));
+                liteRecent.Insert(0, _context.litecoin.SingleOrDefault(choose => choose.id == id));
                 id--;
             }
 
-               
 
 
 
-            ViewBag.bitRecent=bitRecent;
-            ViewBag.cashRecent=cashRecent;
-            ViewBag.ethRecent=ethRecent;
-            ViewBag.liteRecent=liteRecent;
+
+            ViewBag.bitRecent = bitRecent;
+            ViewBag.cashRecent = cashRecent;
+            ViewBag.ethRecent = ethRecent;
+            ViewBag.liteRecent = liteRecent;
             ViewBag.hours = hours;
+
+
+
+
+
+
+
+            List<FullCoin> BTC = _context.lastMonthAllCoins.Where(b => b.Currency == "BTC").ToList();
+            List<FullCoin> BCH = _context.lastMonthAllCoins.Where(b => b.Currency == "BCH").ToList();
+            List<FullCoin> ETH = _context.lastMonthAllCoins.Where(b => b.Currency == "ETH").ToList();
+            List<FullCoin> LTC = _context.lastMonthAllCoins.Where(b => b.Currency == "LTC").ToList();
+
+
+
+            List<List<FullCoin>> allFullCoinsList = new List<List<FullCoin>>();
+            allFullCoinsList.Add(BTC);
+            allFullCoinsList.Add(BCH);
+            allFullCoinsList.Add(ETH);
+            allFullCoinsList.Add(LTC);
+
+            List<List<float>> allFloatCoins = new List<List<float>>();
+            List<float> prices = new List<float>();
+
+
+            foreach (var eachList in allFullCoinsList)
+            {
+                foreach (var coin in eachList)
+                {
+                    prices.Add(coin.price);
+
+                }
+                allFloatCoins.Add(prices);
+                prices = new List<float>();
+
+
+            }
+
+
+
 
             ViewBag.BTC = allFloatCoins[0];
             ViewBag.BCH = allFloatCoins[1];
             ViewBag.ETH = allFloatCoins[2];
             ViewBag.LTC = allFloatCoins[3];
 
+            for (int i = 0; i < 30; i++)
+            {
+                DateTime today = DateTime.Now;
+                today = today.AddDays(-i);
+                string date = today.ToString("yyyy-MM-dd");
+                // Console.WriteLine(date);
+                if (dates.Count < 30)
+                {
+                    dates.Insert(0, today.ToString("dd"));
+                }
+
+
+            }
+
+
+
             ViewBag.dates = dates;
 
-            // ViewBag.max = max;
-            // ViewBag.min = min;
-            //ViewBag.btCoins = monthBt;
-            //ViewBag.BitPrices = prices;
 
             ViewBag.Bitcoin = "BTC";
             ViewBag.BCHCurr = "BCH";

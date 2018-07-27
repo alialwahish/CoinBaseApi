@@ -1,40 +1,19 @@
-﻿
-
-@{
+﻿@{
     string comma = ",";
     string quote = "'";
     
 }
 
+<center>
+    <p id="currency" style="margin-top: 20px;"></p>
 
-
-
-
-<html>
-
-<head>
-    <title>Chart Test</title>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
-
-  
-
-</head>
-
-<body>
-
-    <p id="currency">CrybtoAPI</p>
-
-    <select id="display"  >
+    <select id="display" class="form-control" style="width: 150px;">
         <option value="Hours" >Hours</option> 
         <option value="Week" selected="selected">Week</option>
         <option value="Month">Month</option>
     </select>
+<br>
+    </center>
 
     <canvas id="myLineChart" width="300" height="100" style="display: block;"></canvas>
         
@@ -49,6 +28,79 @@
 
             
                 $(document).ready(function(){
+
+
+                        if($("#display").val()=="Week")
+
+       {//////////////////////////////////////////////  default
+         
+           var myLineChart = new Chart(ctx, {
+               
+               type: 'line',
+        
+        data:  {
+            labels: [@for (int i=23;i< 30;i++){
+               
+                   @ViewBag.dates[i]@comma
+
+                }],
+        datasets: [{
+            label: "BTC",
+            backgroundColor: 'rgba(247, 147, 26, 0.5)',
+            borderColor: 'rgb(247, 147, 26)',
+            data:[    @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.BTC[i]@comma
+               
+                }]
+            
+        },{   //                the last week display
+            label: "LTC",
+            backgroundColor: 'rgba(182, 183, 186, 0.5)',
+            borderColor: 'rgb(182, 183, 186)',
+            data: [   @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.LTC[i]@comma
+               
+                }],
+
+        },
+        {                   
+            label: "ETH",
+             backgroundColor: 'rgba(55, 55, 110, 0.521)',
+            borderColor: 'rgb(55, 55, 24)',
+            data: [   @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.ETH[i]@comma
+               
+                }],
+
+        },
+        {                   
+            label: "BCH",
+             backgroundColor: 'rgba(0, 168, 90, 0.521)',
+            borderColor: 'rgb(0, 168, 90)',
+            data: [   @for (int i=23;i< 30;i++){
+               
+                   @ViewBag.BCH[i]@comma
+               
+                }],
+
+        }  ]
+      
+    },
+        options: {
+            elements: {
+                  line: {
+                    tension: 0, // disables bezier curves
+                }
+            }
+        }
+        });
+                // $("#low").text(@ViewBag.lastWeekMin)
+
+       }
+
                     $("#display").change(function(){
 
                          var myLineChart = new Chart(ctx, {
@@ -274,106 +326,117 @@
                         })
                         
                         
-                        if($("#display").val()=="Month"){
-                            
-                           
-                        }
-       else if($("#display").val()=="Week")
-
-       {////////////////////////////////////////////// Last one
-         
-           var myLineChart = new Chart(ctx, {
-               
-               type: 'line',
-        
-        data:  {
-            labels: [@for (int i=23;i< 30;i++){
-               
-                   @ViewBag.dates[i]@comma
-
-                }],
-        datasets: [{
-            label: "BTC",
-            backgroundColor: 'rgba(247, 147, 26, 0.5)',
-            borderColor: 'rgb(247, 147, 26)',
-            data:[    @for (int i=23;i< 30;i++){
-               
-                   @ViewBag.BTC[i]@comma
-               
-                }]
-            
-        },{   //                the last week display
-            label: "LTC",
-            backgroundColor: 'rgba(182, 183, 186, 0.5)',
-            borderColor: 'rgb(182, 183, 186)',
-            data: [   @for (int i=23;i< 30;i++){
-               
-                   @ViewBag.LTC[i]@comma
-               
-                }],
-
-        },
-        {                   
-            label: "ETH",
-             backgroundColor: 'rgba(55, 55, 110, 0.521)',
-            borderColor: 'rgb(55, 55, 24)',
-            data: [   @for (int i=23;i< 30;i++){
-               
-                   @ViewBag.ETH[i]@comma
-               
-                }],
-
-        },
-        {                   
-            label: "BCH",
-             backgroundColor: 'rgba(0, 168, 90, 0.521)',
-            borderColor: 'rgb(0, 168, 90)',
-            data: [   @for (int i=23;i< 30;i++){
-               
-                   @ViewBag.BCH[i]@comma
-               
-                }],
-
-        }  ]
+                        
       
-    },
-        options: {
-            elements: {
-                  line: {
-                    tension: 0, // disables bezier curves
-                }
-            }
-        }
-        });
-                // $("#low").text(@ViewBag.lastWeekMin)
-
-       }
-
                 })
-
-
-
-
-
-
-        
-       
-
-       
-               
 
         
         </script>
 
 
+@{
+    var bchMIN = 999999999999.99;
+    var bchMAX = 0.00;
 
-        
+    var btcMIN = 999999999999.99;
+    var btcMAX = 0;
+
+    var ethMIN = 999999999999.99;
+    var ethMAX = 0;
+
+    var ltcMIN = 999999999999.99;
+    var ltcMAX = 0;
+
+    @for (int i = 0; i < 30; i++){
+
+        // Bitcoin Cash
+        if(@ViewBag.BCH[i] < bchMIN){
+            bchMIN = (int)Math.Round(@ViewBag.BCH[i], 2);
+        }
+        if(@ViewBag.BCH[i] > bchMAX){
+            bchMAX = (int)Math.Round(@ViewBag.BCH[i], 2);
+        }
+
+        // Bitcoin
+
+        if(@ViewBag.BTC[i] < btcMIN){
+            btcMIN = (int)Math.Round(@ViewBag.BTC[i], 2);
+        }
+        if(@ViewBag.BTC[i] > btcMAX){
+            btcMAX = (int)Math.Round(@ViewBag.BTC[i], 2);
+        }
+
+        // Ethereum
+
+        if(@ViewBag.ETH[i] < ethMIN){
+            ethMIN = (int)Math.Round(@ViewBag.ETH[i], 2);
+        }
+        if(@ViewBag.ETH[i] > ethMAX){
+            ethMAX = (int)Math.Round(@ViewBag.ETH[i], 2);
+        }
+
+        // Litecoin
+
+        if(@ViewBag.LTC[i] < ltcMIN){
+            ltcMIN = (int)Math.Round(@ViewBag.LTC[i], 2);
+        }
+        if(@ViewBag.LTC[i] > ltcMAX){
+            ltcMAX = (int)Math.Round(@ViewBag.LTC[i], 2);
+        }
+
+    }
+}
 
 
-        <p id="high">Highest:  USD</p>
-        <p id="low">Lowest:  USD</p>
+<div style="margin: 0px auto; width: 90%;">
+    <div class="bottom-block">
 
-      
-</body>
+    <div class="bottom-block-title">
+    <center><img src="https://en.bitcoin.it/w/images/en/c/cb/BC_Logotype.png" style="width: 90%; margin-top: 2px;"></center>
+    </div>
+    <br>
+    <p id="high"><b>Highest:</b> $@btcMAX USD</p>
+    <p id="low"><b>Lowest:</b> $@btcMIN USD</p>
+    <center><a href="https://bitcoin.org/en/buy" class="btn btn-light" target="blank">Buy</a></center>
 
-</html>
+    </div>
+
+        <div class="bottom-block">
+
+        <div class="bottom-block-title">
+        <center><img src="http://www.stickpng.com/assets/images/5a521fb92f93c7a8d5137fd1.png" style="width: 90%;"></center>
+        </div>
+    <br>
+    <p id="high"><b>Highest:</b> $@ethMAX USD</p>
+    <p id="low"><b>Lowest:</b> $@ethMIN USD</p>
+
+    <center><a href="https://www.ethereum.org/" class="btn btn-light" target="blank">Buy</a></center>
+
+    </div>
+
+        <div class="bottom-block">
+
+        <div class="bottom-block-title">
+    <center><img src="https://coincards.ca/wp-content/uploads/2018/01/litecoin.png" style="width: 90%; margin-top: -3px;"></center>
+    </div>
+    <br>
+    <p id="high"><b>Highest:</b> $@ltcMAX USD</p>
+    <p id="low"><b>Lowest:</b> $@ltcMIN USD</p>
+
+    <center><a href="https://litecoin.com/#exchanges" class="btn btn-light" target="blank">Buy</a></center>
+
+    </div>
+
+        <div class="bottom-block">
+
+        <div class="bottom-block-title">
+    <center><img src="https://airbitz.co/go/wp-content/uploads/2017/09/bitcoinCash.png" style="width: 90%;"></center>
+    </div>
+    <br>
+    <p id="high"><b>Highest:</b>  $@bchMAX USD</p>
+    <p id="low"><b>Lowest:</b> $@bchMIN USD</p>
+
+    <center><a href="https://www.bitcoincash.org/" class="btn btn-light" target="blank">Buy</a></center>
+
+    </div>
+</div>
