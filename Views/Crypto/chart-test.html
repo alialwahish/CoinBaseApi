@@ -1,0 +1,53 @@
+<html>
+
+<head>
+    <title>Chart Test</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+
+  
+
+</head>
+
+<body>
+
+    <canvas id="myLineChart" width="300" height="100" style="display: block;"></canvas>
+
+    <script>
+        var ctx = document.getElementById("myLineChart").getContext('2d');
+        var myLineChart = new Chart(ctx, {
+        type: 'line',
+        
+        data: {
+        labels: ["7/19", "7/20", "7/21", "7/22", "7/23", "7/24", "Now"],
+        datasets: [{
+            label: "Price (USD)",
+            backgroundColor: 'rgba(233, 255, 110, 0.521)',
+            borderColor: 'rgb(173, 199, 24)',
+            data: [10.99, 5, 2, 20, 30, 45, 3],
+        },
+        {
+            label: "Price (USD)",
+            backgroundColor: 'rgba(55, 55, 110, 0.521)',
+            borderColor: 'rgb(55, 55, 24)',
+            data: [15, 6, 25, 2, 50, 32, 22],
+        }]
+    },
+        options: {
+            elements: {
+                line: {
+                    tension: 0, // disables bezier curves
+                }
+            }
+        }
+        });
+        </script>
+
+</body>
+
+</html>
